@@ -42,6 +42,7 @@ android {
 dependencies {
     val lifecycle_version = "2.6.2"
 
+    implementation ("androidx.viewpager2:viewpager2:1.0.0")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version")
     implementation("com.github.bumptech.glide:glide:4.16.0")

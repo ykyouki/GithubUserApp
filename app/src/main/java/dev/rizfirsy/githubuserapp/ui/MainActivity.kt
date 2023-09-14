@@ -31,8 +31,7 @@ class MainActivity : AppCompatActivity() {
         val mainViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(MainViewModel::class.java)
 
         mainViewModel.listGithubUser.observe(this) { items ->
-            Log.d("Main activity: ", items[2].login)
-        setGithubUserData(items)
+            setGithubUserData(items)
         }
 
         mainViewModel.isLoading.observe(this) {
