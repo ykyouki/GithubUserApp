@@ -2,6 +2,7 @@ package dev.rizfirsy.githubuserapp.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
@@ -47,6 +48,19 @@ class UserDetailActivity : AppCompatActivity() {
             binding.tvUserDetailLocation.text = (userData.location)
             binding.tvUserDetailName.text = userData.name
             binding.tvUserDetailBio.text = (userData.bio).toString()
+        }
+
+        val fragmentManager = supportFragmentManager
+        val userFollowFragment = UserFollowFragment()
+        val fragment = fragmentManager.findFragmentByTag(UserFollowFragment::class.java.simpleName)
+
+        if(fragment !is UserFollowFragment) {
+            Log.d("User detail fragment", "Fragment name : " + UserFollowFragment::class.java.simpleName)
+
+            fragmentManager
+                .beginTransaction()
+                .add(R.id.frame_user_follow_fragment_container, userFollowFragment, UserFollowFragment::class.java.simpleName)
+                .commit()
         }
     }
 }

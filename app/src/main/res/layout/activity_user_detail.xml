@@ -66,28 +66,26 @@
                 />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/userDetailBasic"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/frame_user_follow_fragment_container"
+        app:layout_constraintTop_toBottomOf="@+id/userDetailBasic"
         >
-
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/userDetailTabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:outlineAmbientShadowColor="@color/green"
             app:tabTextColor="@color/darkGrey"
+            app:layout_constraintTop_toTopOf="parent"
             />
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/userDetailViewPager"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/userDetailTabs"
             />
-
-    </RelativeLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
