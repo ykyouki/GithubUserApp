@@ -2,19 +2,19 @@ package dev.rizfirsy.githubuserapp.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
+import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import dev.rizfirsy.githubuserapp.R
-import dev.rizfirsy.githubuserapp.data.response.UserDetailResponse
 import dev.rizfirsy.githubuserapp.databinding.ActivityUserDetailBinding
 
 class UserDetailActivity : AppCompatActivity() {
 
     companion object{
+        val EXTRA_USER_DATA = "extra_user_data"
         @StringRes
         private val TAB_TITLES = intArrayOf(
             R.string.tab_text_1,
@@ -40,11 +40,13 @@ class UserDetailActivity : AppCompatActivity() {
         supportActionBar?.hide()
 
         val userDetailViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(UserDetailViewModel::class.java)
+        intent.getStringExtra(EXTRA_USER_DATA)?.let { userDetailViewModel.getUserDetail(it) }
 
         userDetailViewModel.userDetailData.observe(this) { userData ->
-            //TODO pass data to XML
+            Glide.with(binding.ivUserDetailImage).load(userData.avatarUrl).into(binding.ivUserDetailImage)
+            binding.tvUserDetailLocation.text = (userData.location)
             binding.tvUserDetailName.text = userData.name
+            binding.tvUserDetailBio.text = (userData.bio).toString()
         }
     }
-
 }

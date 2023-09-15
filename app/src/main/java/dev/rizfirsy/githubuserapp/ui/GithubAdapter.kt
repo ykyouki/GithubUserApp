@@ -13,18 +13,27 @@ import dev.rizfirsy.githubuserapp.data.response.ItemsItem
 import dev.rizfirsy.githubuserapp.databinding.ItemGithubUserBinding
 
 
-class GithubAdapter: ListAdapter<ItemsItem, GithubAdapter.MyViewHolder>(DIFF_CALLBACK) {
+class GithubAdapter(private val itemsItem: List<ItemsItem>): RecyclerView.Adapter<GithubAdapter.MyViewHolder>() {
+
+    private lateinit var onItemClickCallback: OnItemClickCallback
+
+    fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
+        this.onItemClickCallback = onItemClickCallback
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val binding = ItemGithubUserBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MyViewHolder(binding)
     }
 
+    override fun getItemCount(): Int {
+        return itemsItem.size
+    }
+
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val user =getItem(position)
+        val user =itemsItem[position]
         holder.bind(user)
-        holder.itemView.setOnClickListener{
-            Toast.makeText(holder.itemView.context, "Liat ${user.login} detail yuk!", Toast.LENGTH_SHORT).show()
-        }
+        holder.itemView.setOnClickListener{ onItemClickCallback.onItemClicked(itemsItem[holder.adapterPosition]) }
     }
 
     class MyViewHolder(val binding: ItemGithubUserBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -34,14 +43,8 @@ class GithubAdapter: ListAdapter<ItemsItem, GithubAdapter.MyViewHolder>(DIFF_CAL
         }
     }
 
-    companion object {
-        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<ItemsItem>() {
-            override fun areItemsTheSame(oldItem: ItemsItem, newItem: ItemsItem): Boolean {
-                return oldItem == newItem
-            }
-            override fun areContentsTheSame(oldItem: ItemsItem, newItem: ItemsItem): Boolean {
-                return oldItem == newItem
-            }
-        }
+    interface OnItemClickCallback {
+        fun onItemClicked(data: ItemsItem)
     }
+
 }
