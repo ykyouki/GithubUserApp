@@ -31,7 +31,6 @@ class UserDetailActivity : AppCompatActivity() {
 
         val sectionsPagerAdapter = SectionsPagerAdapter(this)
 
-
         val viewPager: ViewPager2 = binding.userDetailViewPager
         viewPager.adapter = sectionsPagerAdapter
 
@@ -50,6 +49,8 @@ class UserDetailActivity : AppCompatActivity() {
             binding.tvUserDetailLocation.text = (userData.location)
             binding.tvUserDetailName.text = userData.name
             binding.tvUserDetailBio.text = (userData.bio).toString()
+            binding.tvFollowers.text = "${userData.followers} Followers"
+            binding.tvFollowing.text = "${userData.following} Followings"
 
             sectionsPagerAdapter.username = userData.login
         }

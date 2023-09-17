@@ -65,7 +65,7 @@ class UserDetailViewModel: ViewModel() {
                     _isLoading.value = false
                     _listFollowers.value = response.body()!!
                 } else {
-                    Log.i(TAG, "onFailure: ${response.message()}")
+                    Log.i(TAG, "onResponse failure: ${response}")
                 }
             }
 

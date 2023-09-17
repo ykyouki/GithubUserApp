@@ -51,6 +51,40 @@
             android:textSize="12sp"
             android:textColor="@color/white"
             />
+        <LinearLayout
+            android:id="@+id/userFollowContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tvUserDetailLocation"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginVertical="8dp"
+
+            >
+            <TextView
+                android:id="@+id/tvFollowers"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/tvUserDetailName"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:text="Followers"
+                android:textSize="16sp"
+                android:layout_marginRight="32dp"
+                android:textColor="@color/white"
+                />
+            <TextView
+            android:id="@+id/tvFollowing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tvUserDetailName"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="Following"
+            android:textSize="16sp"
+                android:textColor="@color/white"
+            />
+        </LinearLayout>
 
             <TextView
                 android:id="@+id/tvUserDetailBio"
@@ -59,7 +93,7 @@
                 tools:text="Long bio teks"
                 android:textAlignment="center"
                 android:textColor="@color/white"
-                app:layout_constraintTop_toBottomOf="@id/tvUserDetailLocation"
+                app:layout_constraintTop_toBottomOf="@id/userFollowContainer"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginTop="16dp"
