@@ -30,6 +30,8 @@ class UserDetailActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val sectionsPagerAdapter = SectionsPagerAdapter(this)
+
+
         val viewPager: ViewPager2 = binding.userDetailViewPager
         viewPager.adapter = sectionsPagerAdapter
 
@@ -48,6 +50,8 @@ class UserDetailActivity : AppCompatActivity() {
             binding.tvUserDetailLocation.text = (userData.location)
             binding.tvUserDetailName.text = userData.name
             binding.tvUserDetailBio.text = (userData.bio).toString()
+
+            sectionsPagerAdapter.username = userData.login
         }
 
         val fragmentManager = supportFragmentManager
@@ -55,8 +59,6 @@ class UserDetailActivity : AppCompatActivity() {
         val fragment = fragmentManager.findFragmentByTag(UserFollowFragment::class.java.simpleName)
 
         if(fragment !is UserFollowFragment) {
-            Log.d("User detail fragment", "Fragment name : " + UserFollowFragment::class.java.simpleName)
-
             fragmentManager
                 .beginTransaction()
                 .add(R.id.frame_user_follow_fragment_container, userFollowFragment, UserFollowFragment::class.java.simpleName)
