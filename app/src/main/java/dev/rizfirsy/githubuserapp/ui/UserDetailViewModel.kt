@@ -72,7 +72,6 @@ class UserDetailViewModel: ViewModel() {
             override fun onFailure(call: Call<List<ItemsItem>>, t: Throwable) {
                 Log.e(TAG, "onFailure: ${t.message.toString()}")
             }
-
         })
     }
 }

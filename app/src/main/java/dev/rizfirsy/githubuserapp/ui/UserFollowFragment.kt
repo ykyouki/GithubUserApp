@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.GridLayoutManager
 import dev.rizfirsy.githubuserapp.R
 import dev.rizfirsy.githubuserapp.data.response.ItemsItem
 import dev.rizfirsy.githubuserapp.databinding.FragmentUserFollowBinding
@@ -40,6 +42,12 @@ class UserFollowFragment : Fragment() {
         val username = arguments?.getString(ARG_USERNAME)
         val position = arguments?.getInt(ARG_POSITION)
 
+
+        val layoutManager = GridLayoutManager(requireActivity(), 2)
+        binding.rvUserFollow.layoutManager = layoutManager
+        val itemDecoration = DividerItemDecoration(requireActivity(), layoutManager.orientation)
+        binding.rvUserFollow.addItemDecoration(itemDecoration)
+
         val userDetailViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(UserDetailViewModel::class.java)
         if (username != null) {
             // TODO Replace this hardcoded username with argument
@@ -64,7 +72,7 @@ class UserFollowFragment : Fragment() {
 
     private fun setFollowerData(items: List<ItemsItem>) {
             val adapter = GithubAdapter(items)
-            binding.rvUserFollowers.adapter = adapter
+            binding.rvUserFollow.adapter = adapter
     }
 
     private fun showLoading(isLoading: Boolean) {
