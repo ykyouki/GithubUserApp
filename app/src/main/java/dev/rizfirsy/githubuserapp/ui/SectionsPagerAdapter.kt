@@ -8,7 +8,6 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 class SectionsPagerAdapter(activity: AppCompatActivity) : FragmentStateAdapter(activity) {
 
     var username: String = ""
-
     override fun getItemCount(): Int {
         return 2
     }

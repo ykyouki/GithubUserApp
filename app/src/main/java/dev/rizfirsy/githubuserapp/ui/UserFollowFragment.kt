@@ -50,8 +50,7 @@ class UserFollowFragment : Fragment() {
 
         val userDetailViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(UserDetailViewModel::class.java)
         if (username != null) {
-            // TODO Replace this hardcoded username with argument
-            userDetailViewModel.getUserFollowers("ariestiyansyah")
+            userDetailViewModel.getUserFollowers(username)
         }
 
         userDetailViewModel.listFollowers.observe(viewLifecycleOwner) {
