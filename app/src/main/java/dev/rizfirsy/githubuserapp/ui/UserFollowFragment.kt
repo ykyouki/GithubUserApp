@@ -54,12 +54,6 @@ class UserFollowFragment : Fragment() {
             showLoading(it)
         }
 
-        when(position) {
-            0 -> Log.d("UserFollowFragment", "0")
-            1 -> Log.d("UserFollowFragment", "1")
-            else -> Log.d("UserFollowFragment", "else")
-        }
-
         if(position == 1 ) {
             if (username != null) {
             userDetailViewModel.getUserFollowing(username)
