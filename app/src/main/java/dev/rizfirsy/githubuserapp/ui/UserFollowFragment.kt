@@ -1,6 +1,7 @@
 package dev.rizfirsy.githubuserapp.ui
 
 import android.os.Bundle
+import android.text.style.TtsSpan.ARG_USERNAME
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -13,15 +14,10 @@ import dev.rizfirsy.githubuserapp.R
 import dev.rizfirsy.githubuserapp.data.response.ItemsItem
 import dev.rizfirsy.githubuserapp.databinding.FragmentUserFollowBinding
 
-class UserFollowFragment : Fragment() {
+class UserFollowFragment(var position: Int, val username: String) : Fragment() {
 
     var _binding: FragmentUserFollowBinding? = null
     private val binding get() = _binding!!
-
-    companion object {
-        var ARG_POSITION: String? = null
-        var ARG_USERNAME: String? = null
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,8 +35,6 @@ class UserFollowFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val username = arguments?.getString(ARG_USERNAME)
-        val position = arguments?.getInt(ARG_POSITION, 0)
 
         val layoutManager = GridLayoutManager(requireActivity(), 2)
         binding.rvUserFollow.layoutManager = layoutManager
@@ -53,20 +47,17 @@ class UserFollowFragment : Fragment() {
             showLoading(it)
         }
 
-        if (username != null) {
-            userDetailViewModel.getUserFollowers(username)
-            userDetailViewModel.getUserFollowing(username)
-        }
+        Log.d("FollowFragment", position.toString())
 
-        if(position == 1 ) {
-            binding.rvUserFollow.removeAllViews()
-            userDetailViewModel.listFollowing.observe(viewLifecycleOwner) {
-                    items -> setFollowingData(items)
-            }
-        } else {
-            binding.rvUserFollow.removeAllViews()
+        if(position == 0 ) {
+            userDetailViewModel.getUserFollowers(username)
             userDetailViewModel.listFollowers.observe(viewLifecycleOwner) {
                     items -> setFollowerData(items)
+            }
+        } else {
+            userDetailViewModel.getUserFollowing(username)
+            userDetailViewModel.listFollowing.observe(viewLifecycleOwner) {
+                    items -> setFollowingData(items)
             }
         }
     }

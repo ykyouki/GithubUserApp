@@ -1,6 +1,7 @@
 package dev.rizfirsy.githubuserapp.ui
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
@@ -12,13 +13,6 @@ class SectionsPagerAdapter(activity: AppCompatActivity, val username: String) : 
     }
 
     override fun createFragment(position: Int): Fragment {
-        var fragment: Fragment = UserFollowFragment()
-
-        fragment.arguments = Bundle().apply {
-            putInt(UserFollowFragment.ARG_POSITION, position)
-            putString(UserFollowFragment.ARG_USERNAME, username)
-        }
-
-        return fragment
+        return  UserFollowFragment(position, username)
     }
 }
