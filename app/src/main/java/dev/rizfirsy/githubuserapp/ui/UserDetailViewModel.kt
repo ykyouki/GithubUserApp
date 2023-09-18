@@ -26,6 +26,9 @@ class UserDetailViewModel: ViewModel() {
     private val _listFollowers = MutableLiveData<List<ItemsItem>>()
     var listFollowers = _listFollowers
 
+    private val _listFollowing = MutableLiveData<List<ItemsItem>>()
+    var listFollowing = _listFollowing
+
     init {
         getUserDetail("rizky")
     }
@@ -64,6 +67,27 @@ class UserDetailViewModel: ViewModel() {
                 if(response.isSuccessful) {
                     _isLoading.value = false
                     _listFollowers.value = response.body()!!
+                } else {
+                    Log.i(TAG, "onResponse failure: ${response}")
+                }
+            }
+
+            override fun onFailure(call: Call<List<ItemsItem>>, t: Throwable) {
+                Log.e(TAG, "onFailure: ${t.message.toString()}")
+            }
+        })
+    }
+    fun getUserFollowing(username: String) {
+        _isLoading.value = true
+        val client = ApiConfig.getApiService().getUserFollowing(username)
+        client.enqueue(object : Callback<List<ItemsItem>> {
+            override fun onResponse(
+                call: Call<List<ItemsItem>>,
+                response: Response<List<ItemsItem>>
+            ) {
+                if(response.isSuccessful) {
+                    _isLoading.value = false
+                    listFollowing.value = response.body()!!
                 } else {
                     Log.i(TAG, "onResponse failure: ${response}")
                 }

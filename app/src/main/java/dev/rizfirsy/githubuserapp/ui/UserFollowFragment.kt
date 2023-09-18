@@ -40,8 +40,7 @@ class UserFollowFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val username = arguments?.getString(ARG_USERNAME)
-        val position = arguments?.getInt(ARG_POSITION)
-
+        val position = arguments?.getInt(ARG_POSITION, 0)
 
         val layoutManager = GridLayoutManager(requireActivity(), 2)
         binding.rvUserFollow.layoutManager = layoutManager
@@ -49,29 +48,43 @@ class UserFollowFragment : Fragment() {
         binding.rvUserFollow.addItemDecoration(itemDecoration)
 
         val userDetailViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(UserDetailViewModel::class.java)
-        if (username != null) {
-            userDetailViewModel.getUserFollowers(username)
-        }
 
-        userDetailViewModel.listFollowers.observe(viewLifecycleOwner) {
-            items -> setFollowerData(items)
-        }
 
         userDetailViewModel.isLoading.observe(viewLifecycleOwner) {
             showLoading(it)
         }
-//
-//        if(position == 1 ) {
-//            binding.testUsername.text = "Get followers $username"
-//        } else {
-//            binding.testUsername.text = "Get following $username"
-//        }
 
+        when(position) {
+            0 -> Log.d("UserFollowFragment", "0")
+            1 -> Log.d("UserFollowFragment", "1")
+            else -> Log.d("UserFollowFragment", "else")
+        }
+
+        if(position == 1 ) {
+            if (username != null) {
+            userDetailViewModel.getUserFollowing(username)
+            }
+            userDetailViewModel.listFollowing.observe(viewLifecycleOwner) {
+                    items -> setFollowingData(items)
+            }
+        } else {
+            if (username != null) {
+            userDetailViewModel.getUserFollowers(username)
+            }
+            userDetailViewModel.listFollowers.observe(viewLifecycleOwner) {
+                    items -> setFollowerData(items)
+            }
+        }
     }
 
     private fun setFollowerData(items: List<ItemsItem>) {
             val adapter = GithubAdapter(items)
             binding.rvUserFollow.adapter = adapter
+    }
+
+    private fun setFollowingData(items: List<ItemsItem>) {
+        val adapter = GithubAdapter(items)
+        binding.rvUserFollow.adapter = adapter
     }
 
     private fun showLoading(isLoading: Boolean) {
@@ -81,5 +94,4 @@ class UserFollowFragment : Fragment() {
             binding.progressBar.visibility = View.GONE
         }
     }
-
 }

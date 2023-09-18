@@ -52,7 +52,7 @@ class UserDetailActivity : AppCompatActivity() {
         if(fragment !is UserFollowFragment) {
             fragmentManager
                 .beginTransaction()
-                .add(R.id.frame_user_follow_fragment_container, userFollowFragment, UserFollowFragment::class.java.simpleName)
+                .replace(R.id.frame_user_follow_fragment_container, userFollowFragment, UserFollowFragment::class.java.simpleName)
                 .commit()
         }
     }

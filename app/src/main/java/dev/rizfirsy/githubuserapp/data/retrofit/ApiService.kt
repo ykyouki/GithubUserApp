@@ -22,4 +22,8 @@ interface ApiService {
     @Headers("Authorization: token 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")
     fun getUserFollowers(@Path("username") username: String): Call<List<ItemsItem>>
 
+    @GET("users/{username}/following")
+    @Headers("Authorization: token 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")
+    fun getUserFollowing(@Path("username") username: String): Call<List<ItemsItem>>
+
 }
