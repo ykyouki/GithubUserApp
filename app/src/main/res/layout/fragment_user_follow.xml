@@ -29,12 +29,4 @@
         app:layout_constraintEnd_toEndOf="parent"
         />
 
-        <TextView
-            android:id="@+id/test_username"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="bisa g"
-            app:layout_constraintTop_toTopOf="parent"
-            />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

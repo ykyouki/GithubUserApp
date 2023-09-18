@@ -60,12 +60,12 @@ class UserFollowFragment : Fragment() {
         userDetailViewModel.isLoading.observe(viewLifecycleOwner) {
             showLoading(it)
         }
-
-        if(position == 1 ) {
-            binding.testUsername.text = "Get followers $username"
-        } else {
-            binding.testUsername.text = "Get following $username"
-        }
+//
+//        if(position == 1 ) {
+//            binding.testUsername.text = "Get followers $username"
+//        } else {
+//            binding.testUsername.text = "Get following $username"
+//        }
 
     }
 

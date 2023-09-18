@@ -27,7 +27,7 @@ class UserDetailViewModel: ViewModel() {
     var listFollowers = _listFollowers
 
     init {
-        getUserDetail(USERNAME)
+        getUserDetail("rizky")
     }
 
     fun getUserDetail(username: String) {
@@ -41,8 +41,9 @@ class UserDetailViewModel: ViewModel() {
                 if(response.isSuccessful) {
                     _isLoading.value = false
                     _userDetailData.value = response.body()!!
+                    Log.d(TAG, response.body().toString())
                 } else {
-                    Log.i(TAG, "onFailure: ${response.message()}")
+                    Log.i(TAG, "onFailure: ${response}")
                 }
             }
 

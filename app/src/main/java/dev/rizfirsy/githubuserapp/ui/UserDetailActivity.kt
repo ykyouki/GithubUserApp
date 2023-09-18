@@ -6,6 +6,7 @@ import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
+import com.bumptech.glide.Glide.init
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import dev.rizfirsy.githubuserapp.R
@@ -29,16 +30,6 @@ class UserDetailActivity : AppCompatActivity() {
         binding = ActivityUserDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        //TODO replace this hardcoded username with dynamic
-        val sectionsPagerAdapter = SectionsPagerAdapter(this, "rizky")
-        val viewPager: ViewPager2 = binding.userDetailViewPager
-        viewPager.adapter = sectionsPagerAdapter
-
-        val tabs: TabLayout = binding.userDetailTabs
-        TabLayoutMediator(tabs, viewPager) { tab, position ->
-            tab.text = resources.getString(TAB_TITLES[position])
-        }.attach()
-
         supportActionBar?.hide()
 
         val userDetailViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(UserDetailViewModel::class.java)
@@ -51,6 +42,7 @@ class UserDetailActivity : AppCompatActivity() {
             binding.tvUserDetailBio.text = (userData.bio).toString()
             binding.tvFollowers.text = "${userData.followers} Followers"
             binding.tvFollowing.text = "${userData.following} Followings"
+            initAdapterAndTabLayout(userData.login)
         }
 
         val fragmentManager = supportFragmentManager
@@ -63,5 +55,16 @@ class UserDetailActivity : AppCompatActivity() {
                 .add(R.id.frame_user_follow_fragment_container, userFollowFragment, UserFollowFragment::class.java.simpleName)
                 .commit()
         }
+    }
+
+    private fun initAdapterAndTabLayout(username: String) {
+        val sectionsPagerAdapter = SectionsPagerAdapter(this, username)
+        val viewPager: ViewPager2 = binding.userDetailViewPager
+        viewPager.adapter = sectionsPagerAdapter
+
+        val tabs: TabLayout = binding.userDetailTabs
+        TabLayoutMediator(tabs, viewPager) { tab, position ->
+            tab.text = resources.getString(TAB_TITLES[position])
+        }.attach()
     }
 }
