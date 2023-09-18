@@ -2,7 +2,6 @@ package dev.rizfirsy.githubuserapp.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
@@ -13,6 +12,7 @@ import dev.rizfirsy.githubuserapp.R
 import dev.rizfirsy.githubuserapp.databinding.ActivityUserDetailBinding
 
 class UserDetailActivity : AppCompatActivity() {
+
 
     companion object{
         val EXTRA_USER_DATA = "extra_user_data"
@@ -29,8 +29,8 @@ class UserDetailActivity : AppCompatActivity() {
         binding = ActivityUserDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val sectionsPagerAdapter = SectionsPagerAdapter(this)
-
+        //TODO replace this hardcoded username with dynamic
+        val sectionsPagerAdapter = SectionsPagerAdapter(this, "rizky")
         val viewPager: ViewPager2 = binding.userDetailViewPager
         viewPager.adapter = sectionsPagerAdapter
 
