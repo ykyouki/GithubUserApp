@@ -13,7 +13,6 @@ import retrofit2.Callback
 
 class UserDetailViewModel: ViewModel() {
     companion object{
-        val USERNAME = "username"
         val TAG = "UserDetailViewModel"
     }
 
@@ -28,10 +27,6 @@ class UserDetailViewModel: ViewModel() {
 
     private val _listFollowing = MutableLiveData<List<ItemsItem>>()
     var listFollowing = _listFollowing
-
-    init {
-        getUserDetail("rizky")
-    }
 
     fun getUserDetail(username: String) {
         _isLoading.value = true

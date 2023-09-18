@@ -49,22 +49,20 @@ class UserFollowFragment : Fragment() {
 
         val userDetailViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(UserDetailViewModel::class.java)
 
-
         userDetailViewModel.isLoading.observe(viewLifecycleOwner) {
             showLoading(it)
         }
 
-        if(position == 1 ) {
-            if (username != null) {
+        if (username != null) {
+            userDetailViewModel.getUserFollowers(username)
             userDetailViewModel.getUserFollowing(username)
-            }
+        }
+
+        if(position == 1 ) {
             userDetailViewModel.listFollowing.observe(viewLifecycleOwner) {
                     items -> setFollowingData(items)
             }
         } else {
-            if (username != null) {
-            userDetailViewModel.getUserFollowers(username)
-            }
             userDetailViewModel.listFollowers.observe(viewLifecycleOwner) {
                     items -> setFollowerData(items)
             }
