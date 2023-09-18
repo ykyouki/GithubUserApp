@@ -59,10 +59,12 @@ class UserFollowFragment : Fragment() {
         }
 
         if(position == 1 ) {
+            binding.rvUserFollow.removeAllViews()
             userDetailViewModel.listFollowing.observe(viewLifecycleOwner) {
                     items -> setFollowingData(items)
             }
         } else {
+            binding.rvUserFollow.removeAllViews()
             userDetailViewModel.listFollowers.observe(viewLifecycleOwner) {
                     items -> setFollowerData(items)
             }

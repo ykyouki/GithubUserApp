@@ -37,23 +37,12 @@ class UserDetailActivity : AppCompatActivity() {
 
         userDetailViewModel.userDetailData.observe(this) { userData ->
             Glide.with(binding.ivUserDetailImage).load(userData.avatarUrl).into(binding.ivUserDetailImage)
-            binding.tvUserDetailUsername.text = userData.login
+            binding.tvUserDetailUsername.text = "@${userData.login}"
             binding.tvUserDetailName.text = userData.name
             binding.tvUserDetailBio.text = (userData.bio).toString()
             binding.tvFollowers.text = "${userData.followers} Followers"
             binding.tvFollowing.text = "${userData.following} Followings"
             initAdapterAndTabLayout(userData.login)
-        }
-
-        val fragmentManager = supportFragmentManager
-        val userFollowFragment = UserFollowFragment()
-        val fragment = fragmentManager.findFragmentByTag(UserFollowFragment::class.java.simpleName)
-
-        if(fragment !is UserFollowFragment) {
-            fragmentManager
-                .beginTransaction()
-                .replace(R.id.frame_user_follow_fragment_container, userFollowFragment, UserFollowFragment::class.java.simpleName)
-                .commit()
         }
     }
 
