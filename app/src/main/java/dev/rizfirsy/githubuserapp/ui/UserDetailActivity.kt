@@ -38,10 +38,10 @@ class UserDetailActivity : AppCompatActivity() {
         userDetailViewModel.userDetailData.observe(this) { userData ->
             Glide.with(binding.ivUserDetailImage).load(userData.avatarUrl).into(binding.ivUserDetailImage)
             binding.tvUserDetailUsername.text = "@${userData.login}"
-            binding.tvUserDetailName.text = userData.name
-            binding.tvUserDetailBio.text = (userData.bio).toString()
-            binding.tvFollowers.text = "${userData.followers} Followers"
-            binding.tvFollowing.text = "${userData.following} Followings"
+            binding.tvUserDetailName.text = userData.name ?: "Pengguna ini belum memasukkan nama"
+            binding.tvUserDetailBio.text = (userData.bio ?: "").toString()
+            binding.tvFollowers.text = "${userData.followers ?: 0} Followers"
+            binding.tvFollowing.text = "${userData.following ?: 0} Followings"
             initAdapterAndTabLayout(userData.login)
         }
     }

@@ -21,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:background="@color/green"
+        android:background="@color/darkGrey"
         android:padding="16dp"
         >
 
@@ -45,6 +45,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:textColor="@color/white"
             android:layout_marginTop="16dp"
+            android:textAlignment="center"
             />
 
         <TextView
