@@ -2,6 +2,7 @@ package dev.rizfirsy.githubuserapp.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
@@ -13,7 +14,6 @@ import dev.rizfirsy.githubuserapp.R
 import dev.rizfirsy.githubuserapp.databinding.ActivityUserDetailBinding
 
 class UserDetailActivity : AppCompatActivity() {
-
 
     companion object{
         val EXTRA_USER_DATA = "extra_user_data"
@@ -44,8 +44,19 @@ class UserDetailActivity : AppCompatActivity() {
             binding.tvFollowing.text = "${userData.following ?: 0} Followings"
             initAdapterAndTabLayout(userData.login)
         }
+
+        userDetailViewModel.isLoading.observe(this) {
+            showLoading(it)
+        }
     }
 
+    private fun showLoading(isLoading: Boolean) {
+        if(isLoading) {
+            binding.progressBar.visibility = View.VISIBLE
+        } else {
+            binding.progressBar.visibility = View.GONE
+        }
+    }
     private fun initAdapterAndTabLayout(username: String) {
         val sectionsPagerAdapter = SectionsPagerAdapter(this, username)
         val viewPager: ViewPager2 = binding.userDetailViewPager

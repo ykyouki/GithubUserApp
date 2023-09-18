@@ -35,7 +35,6 @@ class UserFollowFragment(var position: Int, val username: String) : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         val layoutManager = GridLayoutManager(requireActivity(), 2)
         binding.rvUserFollow.layoutManager = layoutManager
         val itemDecoration = DividerItemDecoration(requireActivity(), layoutManager.orientation)
