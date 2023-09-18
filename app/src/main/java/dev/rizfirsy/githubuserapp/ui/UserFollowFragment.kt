@@ -47,8 +47,6 @@ class UserFollowFragment(var position: Int, val username: String) : Fragment() {
             showLoading(it)
         }
 
-        Log.d("FollowFragment", position.toString())
-
         if(position == 0 ) {
             userDetailViewModel.getUserFollowers(username)
             userDetailViewModel.listFollowers.observe(viewLifecycleOwner) {
