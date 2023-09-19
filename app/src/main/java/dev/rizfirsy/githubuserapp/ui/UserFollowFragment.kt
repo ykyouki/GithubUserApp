@@ -1,5 +1,6 @@
 package dev.rizfirsy.githubuserapp.ui
 
+import android.opengl.Visibility
 import android.os.Bundle
 import android.text.style.TtsSpan.ARG_USERNAME
 import android.util.Log
@@ -46,15 +47,30 @@ class UserFollowFragment(var position: Int, val username: String) : Fragment() {
             showLoading(it)
         }
 
-        if(position == 0 ) {
-            userDetailViewModel.getUserFollowers(username)
-            userDetailViewModel.listFollowers.observe(viewLifecycleOwner) {
-                    items -> setFollowerData(items)
-            }
-        } else {
+        if(position == 1 ) {
             userDetailViewModel.getUserFollowing(username)
             userDetailViewModel.listFollowing.observe(viewLifecycleOwner) {
-                    items -> setFollowingData(items)
+                    items ->
+                run {
+                    if (items.size > 0) {
+                        binding.tvFollowCount.visibility = View.GONE
+                        setFollowingData(items)
+                    } else {
+                        binding.tvFollowCount.text = "0 Following"
+                    }
+                }
+            }
+        } else {
+            userDetailViewModel.getUserFollowers(username)
+            userDetailViewModel.listFollowers.observe(viewLifecycleOwner) {
+                items -> run {
+                    if (items.size > 0) {
+                        binding.tvFollowCount.visibility = View.GONE
+                        setFollowerData(items)
+                    } else {
+                        binding.tvFollowCount.text = "0 Followers"
+                    }
+                 }
             }
         }
     }
