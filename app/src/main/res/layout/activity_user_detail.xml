@@ -18,7 +18,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:background="@color/darkGrey"
+            android:background="@color/black2"
             android:padding="16dp"
             >
 
@@ -116,8 +116,8 @@
             android:id="@+id/userDetailTabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:outlineAmbientShadowColor="@color/green"
-            app:tabTextColor="@color/darkGrey"
+            android:outlineAmbientShadowColor="@color/white"
+            app:tabTextColor="@color/black1"
             app:layout_constraintTop_toTopOf="parent"
             />
         <androidx.viewpager2.widget.ViewPager2

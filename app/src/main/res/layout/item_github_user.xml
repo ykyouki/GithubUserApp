@@ -4,16 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:background="@color/white"
+    android:orientation="horizontal"
     android:padding="16dp"
-    android:layout_margin="8dp"
+    android:layout_marginTop="2dp"
+    android:layout_marginBottom="4dp"
+    android:background="@drawable/list_item_card"
     >
     <ImageView
         android:id="@+id/ivGithubUserImage"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_marginBottom="12dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginRight="12dp"
         />
     <TextView
         android:id="@+id/tvGithubUsername"
@@ -23,59 +24,6 @@
         android:layout_height="wrap_content"
         tools:text="Username"
         android:textSize="16sp"
+        android:textColor="@color/white"
         />
-<!--    <TableLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        >-->
-<!--        <TableRow>-->
-<!--            <TextView-->
-<!--                android:id="@+id/tvGithubUserFollowersTitle"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="Follower(s)"-->
-<!--                android:textSize="16sp"-->
-<!--                />-->
-<!--            <TextView-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text=":"-->
-<!--                android:textSize="16sp"-->
-<!--                android:layout_marginHorizontal="8dp"-->
-<!--                />-->
-<!--            <TextView-->
-<!--                android:id="@+id/tvGithubUserFollowersContent"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                tools:text="followers"-->
-<!--                android:textSize="16sp"-->
-<!--                android:textStyle="bold"-->
-<!--                />-->
-<!--        </TableRow>-->
-<!--        <TableRow>-->
-<!--            <TextView-->
-<!--                android:id="@+id/tvGithubUserFollowingTitle"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="Following"-->
-<!--                android:textSize="16sp"-->
-<!--                android:layout_marginRight="8dp"-->
-<!--                />-->
-<!--            <TextView-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text=":"-->
-<!--                android:textSize="16sp"-->
-<!--                android:layout_marginHorizontal="8dp"-->
-<!--                />-->
-<!--            <TextView-->
-<!--                android:id="@+id/tvGithubUserFollowingContent"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                tools:text="following"-->
-<!--                android:textSize="16sp"-->
-<!--                android:textStyle="bold"-->
-<!--                />-->
-<!--        </TableRow>-->
-<!--    </TableLayout>-->
 </LinearLayout>

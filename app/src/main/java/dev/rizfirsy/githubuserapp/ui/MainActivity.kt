@@ -7,6 +7,7 @@ import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import dev.rizfirsy.githubuserapp.data.response.ItemsItem
 import dev.rizfirsy.githubuserapp.databinding.ActivityMainBinding
 
@@ -21,11 +22,8 @@ class MainActivity : AppCompatActivity() {
 
         supportActionBar?.hide()
 
-        val layoutManager = GridLayoutManager(this, 2)
+        val layoutManager = LinearLayoutManager(this)
         binding.rvGithubUser.layoutManager =layoutManager
-        val itemDecoration =DividerItemDecoration(this, layoutManager.orientation)
-        binding.rvGithubUser.addItemDecoration(itemDecoration)
-
 
         val mainViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(MainViewModel::class.java)
 
