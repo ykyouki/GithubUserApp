@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import dev.rizfirsy.githubuserapp.R
 import dev.rizfirsy.githubuserapp.data.response.ItemsItem
 import dev.rizfirsy.githubuserapp.databinding.FragmentUserFollowBinding
@@ -32,10 +33,8 @@ class UserFollowFragment(var position: Int, val username: String) : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val layoutManager = GridLayoutManager(requireActivity(), 2)
+        val layoutManager = LinearLayoutManager(requireActivity())
         binding.rvUserFollow.layoutManager = layoutManager
-        val itemDecoration = DividerItemDecoration(requireActivity(), layoutManager.orientation)
-        binding.rvUserFollow.addItemDecoration(itemDecoration)
 
         val userDetailViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(UserDetailViewModel::class.java)
 
