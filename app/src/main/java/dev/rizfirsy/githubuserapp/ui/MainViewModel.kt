@@ -12,6 +12,14 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+/* TODO "user saved" feature
+    * #1 create user bookmark activity or fragment
+    * #2 setup the ViewModel
+    * #3 use database on it
+    * #4 implement insert
+    * #5 CRUD
+ */
+
 class MainViewModel : ViewModel() {
 
     var GITHUB_USERNAME: String? = "Rizky"
