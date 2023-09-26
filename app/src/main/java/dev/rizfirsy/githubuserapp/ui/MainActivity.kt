@@ -4,10 +4,12 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import dev.rizfirsy.githubuserapp.data.helper.ViewModelFactory
 import dev.rizfirsy.githubuserapp.data.response.ItemsItem
 import dev.rizfirsy.githubuserapp.databinding.ActivityMainBinding
 
@@ -25,8 +27,7 @@ class MainActivity : AppCompatActivity() {
         val layoutManager = LinearLayoutManager(this)
         binding.rvGithubUser.layoutManager =layoutManager
 
-        val mainViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(MainViewModel::class.java)
-
+        val mainViewModel = obtainViewModel(this@MainActivity)
         mainViewModel.listGithubUser.observe(this) { items ->
             setGithubUserData(items)
         }
@@ -68,9 +69,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showSelectedUser (user: ItemsItem) {
-
         val moveToDetailScreen = Intent(this@MainActivity, UserDetailActivity::class.java)
         moveToDetailScreen.putExtra(UserDetailActivity.EXTRA_USER_DATA, user.login)
         startActivity(moveToDetailScreen)
+    }
+
+    private fun obtainViewModel(activity: AppCompatActivity): MainViewModel {
+        val factory = ViewModelFactory.getInstance(activity.application)
+        return ViewModelProvider(activity, factory).get(MainViewModel::class.java)
     }
 }

@@ -1,18 +1,22 @@
 package dev.rizfirsy.githubuserapp.ui
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
-import com.bumptech.glide.Glide.init
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import dev.rizfirsy.githubuserapp.R
+import dev.rizfirsy.githubuserapp.data.database.FavoriteGithubUser
+import dev.rizfirsy.githubuserapp.data.database.FavoriteGithubUserDao
 import dev.rizfirsy.githubuserapp.databinding.ActivityUserDetailBinding
+import kotlinx.coroutines.launch
 
 class UserDetailActivity : AppCompatActivity() {
 
@@ -51,7 +55,8 @@ class UserDetailActivity : AppCompatActivity() {
         }
 
         binding.fabAdd.setOnClickListener{
-            Toast.makeText(this, "Add to favorite", Toast.LENGTH_SHORT).show()
+            // TODO add to database, learn repository
+            Toast.makeText(this, "Added to Favorite", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -72,4 +77,5 @@ class UserDetailActivity : AppCompatActivity() {
             tab.text = resources.getString(TAB_TITLES[position])
         }.attach()
     }
+
 }

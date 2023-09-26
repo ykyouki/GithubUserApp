@@ -15,7 +15,7 @@
         android:theme="@style/Theme.GithubUserApp"
         tools:targetApi="31">
         <activity
-            android:name=".ui.FavoriteUserActivity"
+            android:name=".ui.FavoriteGithubUserActivity"
             android:exported="false" />
         <activity
             android:name=".ui.SplashScreenActivity"

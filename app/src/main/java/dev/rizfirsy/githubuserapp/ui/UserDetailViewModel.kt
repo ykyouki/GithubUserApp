@@ -3,6 +3,8 @@ package dev.rizfirsy.githubuserapp.ui
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import dev.rizfirsy.githubuserapp.data.database.FavoriteGithubUserDao
+import dev.rizfirsy.githubuserapp.data.repository.FavoriteGithubUserRepository
 import dev.rizfirsy.githubuserapp.data.response.GithubResponse
 import dev.rizfirsy.githubuserapp.data.response.ItemsItem
 import dev.rizfirsy.githubuserapp.data.response.UserDetailResponse
@@ -12,6 +14,7 @@ import retrofit2.Response
 import retrofit2.Callback
 
 class UserDetailViewModel: ViewModel() {
+
     companion object{
         val TAG = "UserDetailViewModel"
     }
@@ -92,5 +95,9 @@ class UserDetailViewModel: ViewModel() {
                 Log.e(TAG, "onFailure: ${t.message.toString()}")
             }
         })
+    }
+
+    fun addUserToFavorite(favoriteGithubUserDao: FavoriteGithubUserDao) {
+
     }
 }

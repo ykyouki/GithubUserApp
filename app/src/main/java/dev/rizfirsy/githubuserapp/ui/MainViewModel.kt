@@ -21,7 +21,7 @@ import retrofit2.Response
     * #5 CRUD
  */
 
-class MainViewModel(private val application: Application) : ViewModel() {
+class MainViewModel(application: Application) : ViewModel() {
 
     var GITHUB_USERNAME: String? = "Rizky"
     private val _isLoading = MutableLiveData<Boolean>()

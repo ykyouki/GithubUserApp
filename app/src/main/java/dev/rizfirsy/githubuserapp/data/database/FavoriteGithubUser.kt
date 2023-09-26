@@ -10,6 +10,12 @@ import kotlinx.parcelize.Parcelize
 @Entity
 class FavoriteGithubUser (
     @PrimaryKey
+    @ColumnInfo(name = "id")
+    var id: Int,
+
     @ColumnInfo(name = "username")
-    var username: String
+    var username: String,
+
+    @ColumnInfo(name = "avatar_url")
+    var avatarUrl: String
 ) : Parcelable

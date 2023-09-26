@@ -33,7 +33,9 @@ class GithubAdapter(private val itemsItem: List<ItemsItem>): RecyclerView.Adapte
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val user =itemsItem[position]
         holder.bind(user)
-        holder.itemView.setOnClickListener{ onItemClickCallback.onItemClicked(itemsItem[holder.adapterPosition]) }
+        holder.itemView.setOnClickListener{
+            onItemClickCallback.onItemClicked(itemsItem[holder.adapterPosition])
+        }
     }
 
     class MyViewHolder(val binding: ItemGithubUserBinding) : RecyclerView.ViewHolder(binding.root) {
