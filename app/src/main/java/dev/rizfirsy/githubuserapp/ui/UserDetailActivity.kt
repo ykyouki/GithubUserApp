@@ -3,6 +3,7 @@ package dev.rizfirsy.githubuserapp.ui
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
@@ -47,6 +48,10 @@ class UserDetailActivity : AppCompatActivity() {
 
         userDetailViewModel.isLoading.observe(this) {
             showLoading(it)
+        }
+
+        binding.fabAdd.setOnClickListener{
+            Toast.makeText(this, "Add to favorite", Toast.LENGTH_SHORT).show()
         }
     }
 

@@ -1,5 +1,6 @@
 package dev.rizfirsy.githubuserapp.ui
 
+import android.app.Application
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -20,7 +21,7 @@ import retrofit2.Response
     * #5 CRUD
  */
 
-class MainViewModel : ViewModel() {
+class MainViewModel(private val application: Application) : ViewModel() {
 
     var GITHUB_USERNAME: String? = "Rizky"
     private val _isLoading = MutableLiveData<Boolean>()

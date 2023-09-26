@@ -9,16 +9,16 @@ import androidx.room.Query
 import androidx.room.Update
 
 @Dao
-interface GithubUserDao {
+interface FavoriteGithubUserDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insert(user: GithubUser)
+    fun insert(user: FavoriteGithubUser)
 
     @Update
-    fun update(user: GithubUser)
+    fun update(user: FavoriteGithubUser)
 
     @Delete
-    fun delete(user: GithubUser)
+    fun delete(user: FavoriteGithubUser)
 
-    @Query("SELECT * from githubuser ORDER BY username ASC")
-    fun getAllSavedGithubUsers() :LiveData<List<GithubUser>>
+    @Query("SELECT * from favoritegithubuser ORDER BY username ASC")
+    fun getAllFavouriteGithubUsers() :LiveData<List<FavoriteGithubUser>>
 }

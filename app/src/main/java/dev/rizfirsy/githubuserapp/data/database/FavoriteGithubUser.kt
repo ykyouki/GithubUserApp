@@ -8,7 +8,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 @Entity
-class GithubUser (
+class FavoriteGithubUser (
     @PrimaryKey
     @ColumnInfo(name = "username")
     var username: String

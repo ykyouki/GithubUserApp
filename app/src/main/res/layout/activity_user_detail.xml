@@ -142,4 +142,14 @@
         app:layout_constraintEnd_toEndOf="@id/userDetailBasic"
         />
 </androidx.constraintlayout.widget.ConstraintLayout>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_add"
+        android:layout_margin="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:foregroundGravity="bottom"
+        android:src="@drawable/baseline_favorite_border_24"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>
