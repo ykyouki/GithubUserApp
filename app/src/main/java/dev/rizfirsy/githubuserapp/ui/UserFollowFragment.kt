@@ -1,18 +1,14 @@
 package dev.rizfirsy.githubuserapp.ui
 
-import android.opengl.Visibility
 import android.os.Bundle
-import android.text.style.TtsSpan.ARG_USERNAME
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import dev.rizfirsy.githubuserapp.R
+import dev.rizfirsy.githubuserapp.data.helper.ViewModelFactory
 import dev.rizfirsy.githubuserapp.data.response.ItemsItem
 import dev.rizfirsy.githubuserapp.databinding.FragmentUserFollowBinding
 
@@ -36,7 +32,7 @@ class UserFollowFragment(var position: Int, val username: String) : Fragment() {
         val layoutManager = LinearLayoutManager(requireActivity())
         binding.rvUserFollow.layoutManager = layoutManager
 
-        val userDetailViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(UserDetailViewModel::class.java)
+        val userDetailViewModel = obtainViewModel(requireActivity())
 
         userDetailViewModel.isLoading.observe(viewLifecycleOwner) {
             showLoading(it)
@@ -86,5 +82,10 @@ class UserFollowFragment(var position: Int, val username: String) : Fragment() {
         } else {
             binding.progressBar.visibility = View.GONE
         }
+    }
+
+    private fun obtainViewModel(activity: FragmentActivity): UserDetailViewModel {
+        val factory = ViewModelFactory.getInstance(activity.application)
+        return ViewModelProvider(activity, factory)[UserDetailViewModel::class.java]
     }
 }

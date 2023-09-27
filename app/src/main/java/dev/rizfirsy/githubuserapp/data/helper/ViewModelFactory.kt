@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import dev.rizfirsy.githubuserapp.ui.FavoriteGithubUserViewModel
 import dev.rizfirsy.githubuserapp.ui.MainViewModel
+import dev.rizfirsy.githubuserapp.ui.UserDetailViewModel
 
 class ViewModelFactory private constructor(
     private val mApplication: Application):ViewModelProvider.NewInstanceFactory()
@@ -30,6 +31,8 @@ class ViewModelFactory private constructor(
             return MainViewModel(mApplication) as T
         } else if (modelClass.isAssignableFrom(FavoriteGithubUserViewModel::class.java)) {
             return FavoriteGithubUserViewModel(mApplication) as T
+        } else if (modelClass.isAssignableFrom(UserDetailViewModel::class.java)) {
+            return UserDetailViewModel(mApplication) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
     }

@@ -1,22 +1,19 @@
 package dev.rizfirsy.githubuserapp.ui
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.annotation.StringRes
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import dev.rizfirsy.githubuserapp.R
 import dev.rizfirsy.githubuserapp.data.database.FavoriteGithubUser
-import dev.rizfirsy.githubuserapp.data.database.FavoriteGithubUserDao
+import dev.rizfirsy.githubuserapp.data.helper.ViewModelFactory
 import dev.rizfirsy.githubuserapp.databinding.ActivityUserDetailBinding
-import kotlinx.coroutines.launch
 
 class UserDetailActivity : AppCompatActivity() {
 
@@ -29,6 +26,10 @@ class UserDetailActivity : AppCompatActivity() {
         )
     }
 
+    private val userDetailViewModel by viewModels<UserDetailViewModel> {
+        ViewModelFactory.getInstance(application)
+    }
+
     private lateinit var binding: ActivityUserDetailBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +38,6 @@ class UserDetailActivity : AppCompatActivity() {
 
         supportActionBar?.hide()
 
-        val userDetailViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(UserDetailViewModel::class.java)
         intent.getStringExtra(EXTRA_USER_DATA)?.let { userDetailViewModel.getUserDetail(it) }
 
         userDetailViewModel.userDetailData.observe(this) { userData ->
@@ -48,15 +48,15 @@ class UserDetailActivity : AppCompatActivity() {
             binding.tvFollowers.text = "${userData.followers} Followers"
             binding.tvFollowing.text = "${userData.following} Followings"
             initAdapterAndTabLayout(userData.login)
-        }
 
+            binding.fabAdd.setOnClickListener{
+                val user = FavoriteGithubUser(userData.login, userData.avatarUrl)
+                userDetailViewModel.addUserToFavorite(user)
+                Toast.makeText(this, "Added to Favorite", Toast.LENGTH_SHORT).show()
+            }
+        }
         userDetailViewModel.isLoading.observe(this) {
             showLoading(it)
-        }
-
-        binding.fabAdd.setOnClickListener{
-            // TODO add to database, learn repository
-            Toast.makeText(this, "Added to Favorite", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -77,5 +77,4 @@ class UserDetailActivity : AppCompatActivity() {
             tab.text = resources.getString(TAB_TITLES[position])
         }.attach()
     }
-
 }

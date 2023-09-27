@@ -1,8 +1,11 @@
 package dev.rizfirsy.githubuserapp.ui
 
+import android.app.Application
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import dev.rizfirsy.githubuserapp.data.database.FavoriteGithubUser
 import dev.rizfirsy.githubuserapp.data.database.FavoriteGithubUserDao
 import dev.rizfirsy.githubuserapp.data.repository.FavoriteGithubUserRepository
 import dev.rizfirsy.githubuserapp.data.response.GithubResponse
@@ -13,11 +16,15 @@ import retrofit2.Call
 import retrofit2.Response
 import retrofit2.Callback
 
-class UserDetailViewModel: ViewModel() {
+class UserDetailViewModel(application: Application): ViewModel() {
 
     companion object{
         val TAG = "UserDetailViewModel"
     }
+
+    private val mFavoriteGithubUserRepository: FavoriteGithubUserRepository =
+        FavoriteGithubUserRepository(application)
+
 
     private val _isLoading = MutableLiveData<Boolean>()
     var isLoading = _isLoading
@@ -97,7 +104,7 @@ class UserDetailViewModel: ViewModel() {
         })
     }
 
-    fun addUserToFavorite(favoriteGithubUserDao: FavoriteGithubUserDao) {
-
+    fun addUserToFavorite(user: FavoriteGithubUser) {
+        mFavoriteGithubUserRepository.insert(user)
     }
 }

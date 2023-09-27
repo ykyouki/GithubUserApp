@@ -4,10 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import dev.rizfirsy.githubuserapp.data.helper.ViewModelFactory
 import dev.rizfirsy.githubuserapp.data.response.ItemsItem
@@ -76,6 +73,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun obtainViewModel(activity: AppCompatActivity): MainViewModel {
         val factory = ViewModelFactory.getInstance(activity.application)
-        return ViewModelProvider(activity, factory).get(MainViewModel::class.java)
+        return ViewModelProvider(activity, factory)[MainViewModel::class.java]
     }
 }
