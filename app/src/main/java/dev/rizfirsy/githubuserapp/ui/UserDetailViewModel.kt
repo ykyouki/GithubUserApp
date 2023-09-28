@@ -107,4 +107,12 @@ class UserDetailViewModel(application: Application): ViewModel() {
     fun addUserToFavorite(user: FavoriteGithubUser) {
         mFavoriteGithubUserRepository.insert(user)
     }
+
+    fun removeUserToFavorite(user: FavoriteGithubUser) {
+        mFavoriteGithubUserRepository.delete(user)
+    }
+
+    fun getByUsername(username: String) : LiveData<FavoriteGithubUser>? {
+        return mFavoriteGithubUserRepository?.getByUsername(username)
+    }
 }

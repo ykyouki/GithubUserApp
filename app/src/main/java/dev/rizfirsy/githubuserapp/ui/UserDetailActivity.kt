@@ -2,6 +2,7 @@ package dev.rizfirsy.githubuserapp.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -18,6 +19,7 @@ import dev.rizfirsy.githubuserapp.databinding.ActivityUserDetailBinding
 class UserDetailActivity : AppCompatActivity() {
 
     companion object{
+        var USERNAME = "username"
         val EXTRA_USER_DATA = "extra_user_data"
         @StringRes
         private val TAB_TITLES = intArrayOf(
@@ -49,10 +51,22 @@ class UserDetailActivity : AppCompatActivity() {
             binding.tvFollowing.text = "${userData.following} Followings"
             initAdapterAndTabLayout(userData.login)
 
-            binding.fabAdd.setOnClickListener{
-                val user = FavoriteGithubUser(userData.login, userData.avatarUrl)
-                userDetailViewModel.addUserToFavorite(user)
-                Toast.makeText(this, "Added to Favorite", Toast.LENGTH_SHORT).show()
+            USERNAME = userData.login
+            var isOnDatabase = userDetailViewModel.getByUsername(USERNAME)?.value
+            Toast.makeText(this, isOnDatabase.toString(), Toast.LENGTH_SHORT).show()
+
+            if( isOnDatabase == null ) {
+                binding.fabAdd.setOnClickListener{
+                    val user = FavoriteGithubUser(userData.login, userData.avatarUrl)
+                    userDetailViewModel.addUserToFavorite(user)
+                    Toast.makeText(this, "Added to Favorite", Toast.LENGTH_SHORT).show()
+                }
+            } else {
+                binding.fabAdd.setOnClickListener{
+                    val user = FavoriteGithubUser(userData.login, userData.avatarUrl)
+                    userDetailViewModel.removeUserToFavorite(user)
+                    Toast.makeText(this, "Removed from Favorite", Toast.LENGTH_SHORT).show()
+                }
             }
         }
         userDetailViewModel.isLoading.observe(this) {

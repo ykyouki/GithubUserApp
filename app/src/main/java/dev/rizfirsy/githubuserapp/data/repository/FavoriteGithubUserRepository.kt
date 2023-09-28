@@ -21,6 +21,11 @@ class FavoriteGithubUserRepository(application: Application) {
     fun getAllSavedGithubUsers(): LiveData<List<FavoriteGithubUser>> =
         mGithubUserDao.getAllFavouriteGithubUsers()
 
+    fun getByUsername(username: String): LiveData<FavoriteGithubUser>? {
+        return mGithubUserDao.getUserbyUsername(username)
+    }
+
+
     fun insert(user: FavoriteGithubUser) {
         executorService.execute { mGithubUserDao.insert(user) }
     }
