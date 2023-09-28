@@ -25,7 +25,6 @@ class FavoriteGithubUserRepository(application: Application) {
         return mGithubUserDao.getUserbyUsername(username)
     }
 
-
     fun insert(user: FavoriteGithubUser) {
         executorService.execute { mGithubUserDao.insert(user) }
     }

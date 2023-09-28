@@ -25,6 +25,8 @@ class UserDetailViewModel(application: Application): ViewModel() {
     private val mFavoriteGithubUserRepository: FavoriteGithubUserRepository =
         FavoriteGithubUserRepository(application)
 
+    private val _isFavorite = MutableLiveData<Boolean>()
+    var isFavorite = _isFavorite
 
     private val _isLoading = MutableLiveData<Boolean>()
     var isLoading = _isLoading
@@ -106,10 +108,12 @@ class UserDetailViewModel(application: Application): ViewModel() {
 
     fun addUserToFavorite(user: FavoriteGithubUser) {
         mFavoriteGithubUserRepository.insert(user)
+        _isFavorite.value = true
     }
 
     fun removeUserToFavorite(user: FavoriteGithubUser) {
         mFavoriteGithubUserRepository.delete(user)
+        _isFavorite.value = false
     }
 
     fun getByUsername(username: String) : LiveData<FavoriteGithubUser>? {

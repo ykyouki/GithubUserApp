@@ -69,8 +69,13 @@ class UserDetailActivity : AppCompatActivity() {
                 }
             }
         }
+
         userDetailViewModel.isLoading.observe(this) {
             showLoading(it)
+        }
+
+        userDetailViewModel.isFavorite.observe(this) {
+            toggleFavoriteFab(it)
         }
     }
 
@@ -79,6 +84,14 @@ class UserDetailActivity : AppCompatActivity() {
             binding.progressBar.visibility = View.VISIBLE
         } else {
             binding.progressBar.visibility = View.GONE
+        }
+    }
+
+    private fun toggleFavoriteFab(isFavorite: Boolean) {
+        if(isFavorite) {
+            binding.fabAdd.setImageResource(R.drawable.baseline_favorite_24)
+        } else {
+            binding.fabAdd.setImageResource(R.drawable.baseline_favorite_border_24)
         }
     }
     private fun initAdapterAndTabLayout(username: String) {
