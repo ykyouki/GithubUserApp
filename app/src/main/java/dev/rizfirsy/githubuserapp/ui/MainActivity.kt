@@ -89,7 +89,6 @@ class MainActivity : AppCompatActivity() {
     private fun showSelectedUser (user: ItemsItem) {
         val moveToDetailScreen = Intent(this@MainActivity, UserDetailActivity::class.java)
         moveToDetailScreen.putExtra(UserDetailActivity.EXTRA_USER_NAME, user.login)
-        moveToDetailScreen.putExtra(UserDetailActivity.EXTRA_USER_AVATAR, user.avatarUrl)
         startActivity(moveToDetailScreen)
     }
 

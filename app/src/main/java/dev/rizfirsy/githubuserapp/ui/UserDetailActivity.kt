@@ -87,7 +87,6 @@ class UserDetailActivity() : AppCompatActivity() {
 
     companion object{
         var EXTRA_USER_NAME = "extra_user_name"
-        var EXTRA_USER_AVATAR = "extra_user_avatar"
 
         @StringRes
         private val TAB_TITLES = intArrayOf(
