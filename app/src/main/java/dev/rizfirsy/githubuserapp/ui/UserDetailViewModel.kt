@@ -18,10 +18,6 @@ import retrofit2.Callback
 
 class UserDetailViewModel(application: Application): ViewModel() {
 
-    companion object{
-        val TAG = "UserDetailViewModel"
-    }
-
     private val mFavoriteGithubUserRepository: FavoriteGithubUserRepository =
         FavoriteGithubUserRepository(application)
 
@@ -51,7 +47,6 @@ class UserDetailViewModel(application: Application): ViewModel() {
                 if(response.isSuccessful) {
                     _isLoading.value = false
                     _userDetailData.value = response.body()!!
-                    Log.d(TAG, response.body().toString())
                 } else {
                     Log.i(TAG, "onFailure: ${response}")
                 }
@@ -111,12 +106,23 @@ class UserDetailViewModel(application: Application): ViewModel() {
         _isFavorite.value = true
     }
 
+    fun setIsFavorite(boolean: Boolean) {
+        _isFavorite.value = boolean
+    }
+
     fun removeUserToFavorite(user: FavoriteGithubUser) {
         mFavoriteGithubUserRepository.delete(user)
         _isFavorite.value = false
     }
 
+    //TODO kayanya harus dipanggil di init deh
     fun getByUsername(username: String) : LiveData<FavoriteGithubUser>? {
-        return mFavoriteGithubUserRepository?.getByUsername(username)
+        return mFavoriteGithubUserRepository.getByUsername(username)
     }
+
+
+    companion object{
+        val TAG = "UserDetailViewModel"
+    }
+
 }

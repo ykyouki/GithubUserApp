@@ -16,18 +16,7 @@ import dev.rizfirsy.githubuserapp.data.database.FavoriteGithubUser
 import dev.rizfirsy.githubuserapp.data.helper.ViewModelFactory
 import dev.rizfirsy.githubuserapp.databinding.ActivityUserDetailBinding
 
-class UserDetailActivity : AppCompatActivity() {
-
-    companion object{
-        var USERNAME = "username"
-        val EXTRA_USER_DATA = "extra_user_data"
-        @StringRes
-        private val TAB_TITLES = intArrayOf(
-            R.string.tab_text_1,
-            R.string.tab_text_2
-        )
-    }
-
+class UserDetailActivity() : AppCompatActivity() {
     private val userDetailViewModel by viewModels<UserDetailViewModel> {
         ViewModelFactory.getInstance(application)
     }
@@ -40,7 +29,7 @@ class UserDetailActivity : AppCompatActivity() {
 
         supportActionBar?.hide()
 
-        intent.getStringExtra(EXTRA_USER_DATA)?.let { userDetailViewModel.getUserDetail(it) }
+        intent.getStringExtra(EXTRA_USER_NAME)?.let { userDetailViewModel.getUserDetail(it) }
 
         userDetailViewModel.userDetailData.observe(this) { userData ->
             Glide.with(binding.ivUserDetailImage).load(userData.avatarUrl).into(binding.ivUserDetailImage)
@@ -51,21 +40,23 @@ class UserDetailActivity : AppCompatActivity() {
             binding.tvFollowing.text = "${userData.following} Followings"
             initAdapterAndTabLayout(userData.login)
 
-            USERNAME = userData.login
-            var isOnDatabase = userDetailViewModel.getByUsername(USERNAME)?.value
-            Toast.makeText(this, isOnDatabase.toString(), Toast.LENGTH_SHORT).show()
+            userDetailViewModel.getByUsername(userData.login)?.observe(this) {
+                if (it == null) {
+                    binding.fabAdd.setImageResource(R.drawable.baseline_favorite_border_24)
 
-            if( isOnDatabase == null ) {
-                binding.fabAdd.setOnClickListener{
-                    val user = FavoriteGithubUser(userData.login, userData.avatarUrl)
-                    userDetailViewModel.addUserToFavorite(user)
-                    Toast.makeText(this, "Added to Favorite", Toast.LENGTH_SHORT).show()
-                }
-            } else {
-                binding.fabAdd.setOnClickListener{
-                    val user = FavoriteGithubUser(userData.login, userData.avatarUrl)
-                    userDetailViewModel.removeUserToFavorite(user)
-                    Toast.makeText(this, "Removed from Favorite", Toast.LENGTH_SHORT).show()
+                    binding.fabAdd.setOnClickListener{
+                        val user = FavoriteGithubUser(userData.login, userData.avatarUrl)
+                        userDetailViewModel.addUserToFavorite(user)
+                        Toast.makeText(this, "Added to Favorite", Toast.LENGTH_SHORT).show()
+                    }
+                } else {
+                    binding.fabAdd.setImageResource(R.drawable.baseline_favorite_24)
+
+                    binding.fabAdd.setOnClickListener{
+                        val user = FavoriteGithubUser(userData.login, userData.avatarUrl)
+                        userDetailViewModel.removeUserToFavorite(user)
+                        Toast.makeText(this, "Removed from Favorite", Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
         }
@@ -73,11 +64,9 @@ class UserDetailActivity : AppCompatActivity() {
         userDetailViewModel.isLoading.observe(this) {
             showLoading(it)
         }
-
-        userDetailViewModel.isFavorite.observe(this) {
-            toggleFavoriteFab(it)
-        }
     }
+
+
 
     private fun showLoading(isLoading: Boolean) {
         if(isLoading) {
@@ -87,13 +76,6 @@ class UserDetailActivity : AppCompatActivity() {
         }
     }
 
-    private fun toggleFavoriteFab(isFavorite: Boolean) {
-        if(isFavorite) {
-            binding.fabAdd.setImageResource(R.drawable.baseline_favorite_24)
-        } else {
-            binding.fabAdd.setImageResource(R.drawable.baseline_favorite_border_24)
-        }
-    }
     private fun initAdapterAndTabLayout(username: String) {
         val sectionsPagerAdapter = SectionsPagerAdapter(this, username)
         val viewPager: ViewPager2 = binding.userDetailViewPager
@@ -103,5 +85,16 @@ class UserDetailActivity : AppCompatActivity() {
         TabLayoutMediator(tabs, viewPager) { tab, position ->
             tab.text = resources.getString(TAB_TITLES[position])
         }.attach()
+    }
+
+    companion object{
+        var EXTRA_USER_NAME = "extra_user_name"
+        var EXTRA_USER_AVATAR = "extra_user_avatar"
+
+        @StringRes
+        private val TAB_TITLES = intArrayOf(
+            R.string.tab_text_1,
+            R.string.tab_text_2
+        )
     }
 }
