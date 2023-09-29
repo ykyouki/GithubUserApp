@@ -3,7 +3,6 @@
     <string name="searchbar_hint">Cari user</string>
     <string name="tab_text_1">Followers</string>
     <string name="tab_text_2">Following</string>
-    <string name="setting_button">Setting button</string>
     <string name="settings_action">Settings</string>
     <string name="favorite_user">Favorite user</string>
     <string name="fab_favorite_description">Add user to favorite</string>
