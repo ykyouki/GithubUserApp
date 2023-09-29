@@ -60,6 +60,7 @@ class MainActivity : AppCompatActivity() {
             showLoading(it)
         }
 
+        // TODO change color of the menu for dark mode
         with(binding) {
             searchBar.inflateMenu(R.menu.app_menu)
             searchBar.setOnMenuItemClickListener{ item ->

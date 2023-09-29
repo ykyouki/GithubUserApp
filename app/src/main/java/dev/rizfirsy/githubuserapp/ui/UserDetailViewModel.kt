@@ -121,7 +121,6 @@ class UserDetailViewModel(application: Application,
         _isFavorite.value = false
     }
 
-    //TODO kayanya harus dipanggil di init deh
     fun getByUsername(username: String) : LiveData<FavoriteGithubUser>? {
         return mFavoriteGithubUserRepository.getByUsername(username)
     }

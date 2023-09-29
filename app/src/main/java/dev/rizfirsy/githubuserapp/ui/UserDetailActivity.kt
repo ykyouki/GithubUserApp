@@ -32,7 +32,6 @@ class UserDetailActivity() : AppCompatActivity() {
 
         supportActionBar?.hide()
 
-        //TODO ini coba ganti ke obtainView nanti
         val userDetailViewModel by viewModels<UserDetailViewModel> {
             ViewModelFactory.getInstance(application, appPref)
         }
