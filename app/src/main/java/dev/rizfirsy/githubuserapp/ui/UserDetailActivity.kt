@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayout
@@ -20,21 +21,17 @@ import dev.rizfirsy.githubuserapp.data.helper.dataStore
 import dev.rizfirsy.githubuserapp.databinding.ActivityUserDetailBinding
 
 class UserDetailActivity() : AppCompatActivity() {
-
-
     private lateinit var binding: ActivityUserDetailBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityUserDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val appPref = SettingsPreferences.getInstance(application.dataStore)
-
         supportActionBar?.hide()
 
-        val userDetailViewModel by viewModels<UserDetailViewModel> {
-            ViewModelFactory.getInstance(application, appPref)
-        }
+        val appPref = SettingsPreferences.getInstance(application.dataStore)
+
+        val userDetailViewModel = obtainViewModel(this@UserDetailActivity, appPref)
 
         userDetailViewModel.getThemeSettings().observe(this) {
             isDarkModeActive: Boolean ->
@@ -99,6 +96,11 @@ class UserDetailActivity() : AppCompatActivity() {
         TabLayoutMediator(tabs, viewPager) { tab, position ->
             tab.text = resources.getString(TAB_TITLES[position])
         }.attach()
+    }
+
+    private fun obtainViewModel(activity: AppCompatActivity, appPref: SettingsPreferences): UserDetailViewModel {
+        val factory = ViewModelFactory.getInstance(activity.application, appPref)
+        return ViewModelProvider(activity, factory)[UserDetailViewModel::class.java]
     }
 
     companion object{

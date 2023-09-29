@@ -16,9 +16,7 @@ class SettingsPreferences private constructor(private val dataStore: DataStore<P
     private val THEME_KEY = booleanPreferencesKey("theme_setting")
 
     fun getThemeSetting(): Flow<Boolean> {
-        Log.i("dataStore", dataStore.data.toString())
         return dataStore.data.map { preferences ->
-            Log.i("isDarkModeActivePreferences", preferences[THEME_KEY].toString())
             preferences[THEME_KEY] ?: false
         }
     }

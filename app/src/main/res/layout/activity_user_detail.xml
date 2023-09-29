@@ -132,6 +132,9 @@
         app:layout_constraintEnd_toEndOf="@id/userDetailBasic"
         />
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+<!--  TODO center the icon correctly bro!-->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_add"
         android:layout_margin="16dp"
