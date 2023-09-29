@@ -5,14 +5,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import dev.rizfirsy.githubuserapp.data.helper.SettingsPreferences
 import dev.rizfirsy.githubuserapp.data.helper.ViewModelFactory
 import dev.rizfirsy.githubuserapp.data.response.ItemsItem
 import dev.rizfirsy.githubuserapp.databinding.FragmentUserFollowBinding
 
-class UserFollowFragment(var position: Int, val username: String) : Fragment() {
+class UserFollowFragment(var position: Int, val username: String,
+                         private val appPref: SettingsPreferences) : Fragment() {
 
     var _binding: FragmentUserFollowBinding? = null
     private val binding get() = _binding!!
@@ -32,7 +35,16 @@ class UserFollowFragment(var position: Int, val username: String) : Fragment() {
         val layoutManager = LinearLayoutManager(requireActivity())
         binding.rvUserFollow.layoutManager = layoutManager
 
-        val userDetailViewModel = obtainViewModel(requireActivity())
+        val userDetailViewModel = obtainViewModel(requireActivity(), appPref)
+
+        userDetailViewModel.getThemeSettings().observe(viewLifecycleOwner) {
+            isDarkModeActive: Boolean ->
+            if (isDarkModeActive) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            }
+        }
 
         userDetailViewModel.isLoading.observe(viewLifecycleOwner) {
             showLoading(it)
@@ -84,8 +96,8 @@ class UserFollowFragment(var position: Int, val username: String) : Fragment() {
         }
     }
 
-    private fun obtainViewModel(activity: FragmentActivity): UserDetailViewModel {
-        val factory = ViewModelFactory.getInstance(activity.application)
+    private fun obtainViewModel(activity: FragmentActivity, appPreferences: SettingsPreferences): UserDetailViewModel {
+        val factory = ViewModelFactory.getInstance(activity.application, appPreferences)
         return ViewModelProvider(activity, factory)[UserDetailViewModel::class.java]
     }
 }

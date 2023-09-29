@@ -5,8 +5,10 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import dev.rizfirsy.githubuserapp.data.database.FavoriteGithubUser
 import dev.rizfirsy.githubuserapp.data.database.FavoriteGithubUserDao
+import dev.rizfirsy.githubuserapp.data.helper.SettingsPreferences
 import dev.rizfirsy.githubuserapp.data.repository.FavoriteGithubUserRepository
 import dev.rizfirsy.githubuserapp.data.response.GithubResponse
 import dev.rizfirsy.githubuserapp.data.response.ItemsItem
@@ -16,7 +18,11 @@ import retrofit2.Call
 import retrofit2.Response
 import retrofit2.Callback
 
-class UserDetailViewModel(application: Application): ViewModel() {
+class UserDetailViewModel(application: Application,
+                          private val preferences: SettingsPreferences): ViewModel() {
+    fun getThemeSettings(): LiveData<Boolean> {
+        return preferences.getThemeSetting().asLiveData()
+    }
 
     private val mFavoriteGithubUserRepository: FavoriteGithubUserRepository =
         FavoriteGithubUserRepository(application)

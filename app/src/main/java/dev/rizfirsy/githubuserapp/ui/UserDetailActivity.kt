@@ -7,19 +7,20 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.annotation.StringRes
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import dev.rizfirsy.githubuserapp.R
 import dev.rizfirsy.githubuserapp.data.database.FavoriteGithubUser
+import dev.rizfirsy.githubuserapp.data.helper.SettingsPreferences
 import dev.rizfirsy.githubuserapp.data.helper.ViewModelFactory
+import dev.rizfirsy.githubuserapp.data.helper.dataStore
 import dev.rizfirsy.githubuserapp.databinding.ActivityUserDetailBinding
 
 class UserDetailActivity() : AppCompatActivity() {
-    private val userDetailViewModel by viewModels<UserDetailViewModel> {
-        ViewModelFactory.getInstance(application)
-    }
+
 
     private lateinit var binding: ActivityUserDetailBinding
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,7 +28,23 @@ class UserDetailActivity() : AppCompatActivity() {
         binding = ActivityUserDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val appPref = SettingsPreferences.getInstance(application.dataStore)
+
         supportActionBar?.hide()
+
+        //TODO ini coba ganti ke obtainView nanti
+        val userDetailViewModel by viewModels<UserDetailViewModel> {
+            ViewModelFactory.getInstance(application, appPref)
+        }
+
+        userDetailViewModel.getThemeSettings().observe(this) {
+            isDarkModeActive: Boolean ->
+            if (isDarkModeActive) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            }
+        }
 
         intent.getStringExtra(EXTRA_USER_NAME)?.let { userDetailViewModel.getUserDetail(it) }
 
@@ -38,7 +55,7 @@ class UserDetailActivity() : AppCompatActivity() {
             binding.tvUserDetailBio.text = userData.bio.toString()
             binding.tvFollowers.text = "${userData.followers} Followers"
             binding.tvFollowing.text = "${userData.following} Followings"
-            initAdapterAndTabLayout(userData.login)
+            initAdapterAndTabLayout(userData.login, appPref)
 
             userDetailViewModel.getByUsername(userData.login)?.observe(this) {
                 if (it == null) {
@@ -74,8 +91,8 @@ class UserDetailActivity() : AppCompatActivity() {
         }
     }
 
-    private fun initAdapterAndTabLayout(username: String) {
-        val sectionsPagerAdapter = SectionsPagerAdapter(this, username)
+    private fun initAdapterAndTabLayout(username: String, appPref: SettingsPreferences) {
+        val sectionsPagerAdapter = SectionsPagerAdapter(this, username, appPref)
         val viewPager: ViewPager2 = binding.userDetailViewPager
         viewPager.adapter = sectionsPagerAdapter
 

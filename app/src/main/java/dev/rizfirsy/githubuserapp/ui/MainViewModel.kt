@@ -5,10 +5,14 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.viewModelScope
+import dev.rizfirsy.githubuserapp.data.helper.SettingsPreferences
 import dev.rizfirsy.githubuserapp.data.response.GithubResponse
 import dev.rizfirsy.githubuserapp.data.response.ItemsItem
 import dev.rizfirsy.githubuserapp.data.retrofit.ApiConfig
 import dev.rizfirsy.githubuserapp.databinding.ActivityMainBinding
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -21,9 +25,12 @@ import retrofit2.Response
     * #5 CRUD
  */
 
-class MainViewModel(application: Application) : ViewModel() {
+class MainViewModel(application: Application,
+                    private val preferences: SettingsPreferences) : ViewModel() {
+    fun getThemeSettings(): LiveData<Boolean> {
+        return preferences.getThemeSetting().asLiveData()
+    }
 
-    var GITHUB_USERNAME: String? = "Rizky"
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
@@ -35,7 +42,7 @@ class MainViewModel(application: Application) : ViewModel() {
     }
 
     init {
-        GITHUB_USERNAME?.let { searchGithubUsers(it) }
+       searchGithubUsers("Alex")
        }
     fun searchGithubUsers(username: String) {
         _isLoading.value = true

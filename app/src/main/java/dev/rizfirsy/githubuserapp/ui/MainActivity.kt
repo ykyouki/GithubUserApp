@@ -7,10 +7,13 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import dev.rizfirsy.githubuserapp.R
+import dev.rizfirsy.githubuserapp.data.helper.SettingsPreferences
 import dev.rizfirsy.githubuserapp.data.helper.ViewModelFactory
+import dev.rizfirsy.githubuserapp.data.helper.dataStore
 import dev.rizfirsy.githubuserapp.data.response.ItemsItem
 import dev.rizfirsy.githubuserapp.databinding.ActivityMainBinding
 
@@ -25,10 +28,30 @@ class MainActivity : AppCompatActivity() {
 
         supportActionBar?.hide()
 
+        val appPref = SettingsPreferences.getInstance(application.dataStore)
         val layoutManager = LinearLayoutManager(this)
         binding.rvGithubUser.layoutManager =layoutManager
 
-        val mainViewModel = obtainViewModel(this@MainActivity)
+        val mainViewModel = obtainViewModel(this@MainActivity, appPref)
+
+        mainViewModel.getThemeSettings().observe(this) {
+                isDarkModeActive: Boolean ->
+                if (isDarkModeActive) {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                } else {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                }
+        }
+
+        mainViewModel.getThemeSettings().observe(this) {
+            isDarkModeActive ->
+            run {
+                if (isDarkModeActive) {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                }
+            }
+        }
+
         mainViewModel.listGithubUser.observe(this) { items ->
             setGithubUserData(items)
         }
@@ -92,8 +115,8 @@ class MainActivity : AppCompatActivity() {
         startActivity(moveToDetailScreen)
     }
 
-    private fun obtainViewModel(activity: AppCompatActivity): MainViewModel {
-        val factory = ViewModelFactory.getInstance(activity.application)
+    private fun obtainViewModel(activity: AppCompatActivity, appPref: SettingsPreferences): MainViewModel {
+        val factory = ViewModelFactory.getInstance(activity.application, appPref)
         return ViewModelProvider(activity, factory)[MainViewModel::class.java]
     }
 }
