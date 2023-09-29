@@ -3,9 +3,13 @@ package dev.rizfirsy.githubuserapp.ui
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import dev.rizfirsy.githubuserapp.R
 import dev.rizfirsy.githubuserapp.data.helper.ViewModelFactory
 import dev.rizfirsy.githubuserapp.data.response.ItemsItem
 import dev.rizfirsy.githubuserapp.databinding.ActivityMainBinding
@@ -34,6 +38,23 @@ class MainActivity : AppCompatActivity() {
         }
 
         with(binding) {
+            searchBar.inflateMenu(R.menu.app_menu)
+            searchBar.setOnMenuItemClickListener{ item ->
+                when(item.itemId) {
+                    R.id.favorite_action -> {
+                        val intent = Intent(this@MainActivity, FavoriteGithubUserActivity::class.java)
+                        startActivity(intent)
+                        true
+                    }
+                    R.id.settings_action -> {
+                        val intent = Intent(this@MainActivity, SettingsActivity::class.java)
+                        startActivity(intent)
+                        true
+                    }
+                    else -> false
+                }
+            }
+
             searchView.setupWithSearchBar(searchBar)
             searchView
                 .editText

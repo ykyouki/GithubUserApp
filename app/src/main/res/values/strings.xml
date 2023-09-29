@@ -1,7 +1,9 @@
 <resources>
-    <string name="app_name">GithubUserApp</string>
+    <string name="app_name">Github Users</string>
     <string name="searchbar_hint">Cari user</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="tab_text_1">Followers</string>
     <string name="tab_text_2">Following</string>
+    <string name="setting_button">Setting button</string>
+    <string name="settings_action">Settings</string>
+    <string name="favorite_user">Favorite user</string>
 </resources>

@@ -15,6 +15,9 @@
         android:theme="@style/Theme.GithubUserApp"
         tools:targetApi="31">
         <activity
+            android:name=".ui.SettingsActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.FavoriteGithubUserActivity"
             android:exported="false" />
         <activity
@@ -32,7 +35,7 @@
         <activity
             android:name=".ui.MainActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
-            android:exported="true"></activity>
+            android:exported="true" />
     </application>
 
 </manifest>
