@@ -5,7 +5,6 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.UserFollowFragment"
-    android:background="@color/black2"
     >
     <TextView
         android:id="@+id/tvFollowCount"
@@ -14,7 +13,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:text="0 Followers"
+        android:text="@string/no_followers"
         android:layout_marginTop="24dp"
         />
     <androidx.recyclerview.widget.RecyclerView

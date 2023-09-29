@@ -6,4 +6,8 @@
     <string name="setting_button">Setting button</string>
     <string name="settings_action">Settings</string>
     <string name="favorite_user">Favorite user</string>
+    <string name="fab_favorite_description">Add user to favorite</string>
+    <string name="splash_text">Github User\nApp</string>
+    <string name="no_followers">0 Followers</string>
+    <string name="user_avatar">avatar</string>
 </resources>

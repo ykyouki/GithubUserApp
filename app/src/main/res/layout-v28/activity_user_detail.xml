@@ -108,6 +108,7 @@
             android:id="@+id/userDetailTabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:outlineAmbientShadowColor="@color/white"
             app:layout_constraintTop_toTopOf="parent"
             />
         <androidx.viewpager2.widget.ViewPager2
@@ -141,5 +142,5 @@
         android:layout_height="48dp"
         android:foregroundGravity="bottom"
         android:src="@drawable/baseline_favorite_border_24"
-        android:contentDescription="@string/fab_favorite_description" />
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>
