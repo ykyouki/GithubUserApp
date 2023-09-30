@@ -36,6 +36,7 @@ class MainViewModel(application: Application,
     init {
        searchGithubUsers("Alex")
        }
+
     fun searchGithubUsers(username: String) {
         _isLoading.value = true
         val client = ApiConfig.getApiService().searchGithubUser(username)

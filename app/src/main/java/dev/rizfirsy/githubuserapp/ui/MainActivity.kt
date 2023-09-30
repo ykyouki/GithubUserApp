@@ -3,6 +3,7 @@ package dev.rizfirsy.githubuserapp.ui
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -60,7 +61,6 @@ class MainActivity : AppCompatActivity() {
             showLoading(it)
         }
 
-        // TODO change color of the menu for dark mode
         with(binding) {
             searchBar.inflateMenu(R.menu.app_menu)
             searchBar.setOnMenuItemClickListener{ item ->
