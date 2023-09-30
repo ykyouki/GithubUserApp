@@ -1,12 +1,11 @@
 package dev.rizfirsy.githubuserapp.ui
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.annotation.StringRes
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
@@ -19,6 +18,7 @@ import dev.rizfirsy.githubuserapp.data.helper.SettingsPreferences
 import dev.rizfirsy.githubuserapp.data.helper.ViewModelFactory
 import dev.rizfirsy.githubuserapp.data.helper.dataStore
 import dev.rizfirsy.githubuserapp.databinding.ActivityUserDetailBinding
+
 
 class UserDetailActivity() : AppCompatActivity() {
     private lateinit var binding: ActivityUserDetailBinding
@@ -52,6 +52,17 @@ class UserDetailActivity() : AppCompatActivity() {
             binding.tvFollowers.text = "${userData.followers} Followers"
             binding.tvFollowing.text = "${userData.following} Followings"
             initAdapterAndTabLayout(userData.login, appPref)
+
+            binding.btnShare?.setOnClickListener{
+                val sendIntent: Intent = Intent().apply {
+                    action = Intent.ACTION_SEND
+                    putExtra(Intent.EXTRA_TEXT, userData.url)
+                    type = "text/plain"
+                }
+
+                val shareIntent = Intent.createChooser(sendIntent, "Share ${userData.name}'s profile")
+                startActivity(shareIntent)
+            }
 
             userDetailViewModel.getByUsername(userData.login)?.observe(this) {
                 if (it == null) {
