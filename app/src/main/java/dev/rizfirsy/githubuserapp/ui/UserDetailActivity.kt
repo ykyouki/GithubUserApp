@@ -47,8 +47,8 @@ class UserDetailActivity() : AppCompatActivity() {
         userDetailViewModel.userDetailData.observe(this) { userData ->
             Glide.with(binding.ivUserDetailImage).load(userData.avatarUrl).into(binding.ivUserDetailImage)
             binding.tvUserDetailUsername.text = "@${userData.login}"
-            binding.tvUserDetailName.text = userData.name
-            binding.tvUserDetailBio.text = userData.bio.toString()
+            binding.tvUserDetailName.text = userData?.name
+            binding.tvUserDetailBio.text = userData.bio?.toString()
             binding.tvFollowers.text = "${userData.followers} Followers"
             binding.tvFollowing.text = "${userData.following} Followings"
             initAdapterAndTabLayout(userData.login, appPref)
